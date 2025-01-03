@@ -1,13 +1,14 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
 
-        int height = scanner.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        for(int i = 1; i <= height; i++){
-            for(int j = 1; j <= i; j++){
+        int A = Integer.parseInt(br.readLine());
+
+        for(int i = 1; i<= A; i++){
+            for(int j = 1; j<=i;j++){
                 System.out.print("*");
             }
             System.out.println();
