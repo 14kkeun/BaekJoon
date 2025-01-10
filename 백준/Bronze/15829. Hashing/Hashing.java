@@ -1,33 +1,20 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
         int L = Integer.parseInt(br.readLine());
-        String str = br.readLine();
-
-        int arr[] = new int[L];
-        for (int i = 0; i < L; i++) {
-            arr[i] = (int)str.charAt(i) - 96;
+        String S = br.readLine();
+        long result = 0;
+        long pow = 1;
+        for(int i = 0; i < L; i++) {
+            result += ((S.charAt(i) - 96) * pow);
+            pow = (pow * 31) % 1234567891;
         }
-
-        int sum = 0;
-        int r = 31;
-        for(int i = 0; i < L; i++){
-            r = 31;
-            r = (int)Math.pow(r, i);
-            sum += arr[i] * r;
-        }
-
-        bw.write(String.valueOf(sum));
-        bw.flush();
-        bw.close();
-
-
+        System.out.println(result % 1234567891);
     }
 
 }
