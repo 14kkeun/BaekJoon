@@ -1,45 +1,52 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
 
-        int arr[] = new int[N];
-        st = new StringTokenizer(br.readLine());
+        int[] arr = new int[N];
+
+        st = new StringTokenizer(br.readLine(), " ");
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int sum = 0;
-        int max = 0;
-        for (int i = 0; i < N; i++) {
-            for(int j = i + 1; j < M; j++) {
-                for(int k = j + 1; k < N; k++) {
+        int result = search(arr, N, M);
+        System.out.println(result);
+    }
+    
+    static int search(int[] arr, int N, int M) {
+        int result = 0;
 
-                    sum = arr[i] + arr[j] + arr[k];
+        for (int i = 0; i < N - 2; i++) {
+            if(arr[i] > M) continue;
 
-                    if(M == sum) {
-                        max = sum;
-                        break;
+            for (int j = i + 1; j < N - 1; j++) {
+                if(arr[i] + arr[j] > M) continue;
+
+                for (int k = j + 1; k < N; k++) {
+                    int temp = arr[i] + arr[j] + arr[k];
+
+                    if (M == temp) {
+                        return temp;
                     }
 
-                    if(max < sum && sum < M){
-                        max = sum;
+                    if(result < temp && temp < M) {
+                        result = temp;
                     }
                 }
             }
         }
 
-        bw.write(String.valueOf(max));
-
-        br.close();
-        bw.flush();
-        bw.close();
+        return result;
     }
 }
